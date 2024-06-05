@@ -1,0 +1,27 @@
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+main{
+    section.board{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr ;
+        width: max-content;
+        gap: 0;
+        article{
+            border: 1px solid black;
+            section{               
+                label{
+                    input{
+                        text-align: center;
+                        height: 50px;
+                        width: 50px;
+                    }
+                }
+            }
+        }
+    }
+}
