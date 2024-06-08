@@ -11,7 +11,9 @@
                         [id]="iquadrant + '-' + irow + '-'+ icolumn"
                         type="text" 
                         [value]="column.value|| ''" 
-                        [ngStyle]="{'color': column.color}" 
+                        [ngStyle]="{'color': column.color}"
+                        [disabled]="column.color==='darkgreen'? true: false"
+                        maxlength="1"
                         (change)="onChange(iquadrant, irow, icolumn, $event)">
                 </label>
             </section>

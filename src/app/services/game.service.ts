@@ -11,14 +11,16 @@ export class GameService {
     this.createBoard()
   }
 
-  private createBoard(){
+  private createBoard(): void{
     for(let i= 0; i<9; i++){
-          this.Board.quadrants.push({rows: [
-              {columns: [{},{},{}]},
-              {columns: [{},{},{}]},
-              {columns: [{},{},{}]},
-          ]})
-      }
+      this.Board.quadrants.push({rows: [
+          {columns: [{},{},{}]},
+          {columns: [{},{},{}]},
+          {columns: [{},{},{}]},
+        ]
+      })
+    }
+    this.randomNumbers()
   }
 
   private verifyQuadrante(quadrant:number, value: number){
@@ -76,13 +78,46 @@ export class GameService {
     return valuesInColumn.includes(value);
   }
 
-  setValueHouse(quadrant: number, row: number, column: number, value: number){
+  private randomNumbers(): void{
+    for(let i= 0; i<15; i++){
+      let isEmpty = false;
+      while (!isEmpty) {
+        const {quadrant, row, column} = this.getAleatoryAddress()
+        
+        if(!this.Board.quadrants[quadrant].rows[row].columns[column].value){
+          const number = Math.floor(Math.random()*10)
+          if(this.checkMove(quadrant, row, column, number)){
+            this.Board.quadrants[quadrant].rows[row].columns[column] = { color: 'darkgreen', value: number}
+            isEmpty = !isEmpty
+          }
+        }
+      }
+    }
+  }
+
+  private getAleatoryAddress(): {quadrant: number, row: number, column: number}{
+    return{
+      quadrant: Math.floor(Math.random()*9),
+      row: Math.floor(Math.random()*3),
+      column: Math.floor(Math.random()*3)
+    }
+  }
+
+  private checkMove(quadrant: number, row: number, column: number, value: number):boolean {
     if(this.verifyQuadrante(quadrant, value) 
       || this.verifyRow(quadrant, row, value) 
       || this.verifyColumn(quadrant, column, value)){
+        return false
+    }
+    return true
+  }
+
+  setValueHouse(quadrant: number, row: number, column: number, value: number){
+    if(this.checkMove(quadrant, row, column, value)=== false){
         this.Board.quadrants[quadrant].rows[row].columns[column] = { value: value, color: 'red' }
+        return;
     }
 
-    this.Board.quadrants[quadrant].rows[row].columns[column].value = value
+    this.Board.quadrants[quadrant].rows[row].columns[column]= {value: value, color: ''}
   }
 }
