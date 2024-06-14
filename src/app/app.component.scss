@@ -6,6 +6,10 @@ header {
 
 
 main{
+    display:  flex;
+    gap: 16px;
+
+    
     section.board{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr ;

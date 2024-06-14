@@ -4,7 +4,7 @@
 
 <main>
     <section class="board">
-        <article *ngFor="let quadrant of Board.quadrants; index as iquadrant ">
+        <article *ngFor="let quadrant of PlayerBoard.quadrants; index as iquadrant ">
             <section *ngFor="let row of quadrant.rows; index as irow">
                 <label *ngFor="let column of row.columns; index as icolumn">
                     <input  
